@@ -1,59 +1,54 @@
-# Alumni Portal Backend (Go)
+# URL Shortener (Go)
 
-This is the backend service for the **Alumni Portal Project**, built with **Go**.  
-It provides APIs for authentication, gallery management, alumni information, and payments.  
-Currently, the project is in its early stage with routes, modular structure, and setup ready.  
-Upcoming features include **database support** (PostgreSQL) and **data validation**.
+A simple and lightweight **URL Shortener service** built with **Golang**.  
+It allows users to shorten long URLs into compact links and redirect them efficiently.  
+
+This project is in its early stages — currently handling URL shortening and redirection in memory.  
+Next steps include adding **database support** and **request validation**.
 
 ---
 
 ## 🚀 Features (Current)
-- Go module setup with clean project structure
-- Authentication routes (JWT-based in progress)
-- Gallery system with event image metadata
-- Admin dashboard APIs (scaffolded)
-- Payment system (Stripe integration planned)
+- Shorten long URLs into short codes
+- Redirect short URLs to their original destination
+- In-memory storage (map) for shortened links
+- Clean and modular Go code
 
 ---
 
 ## 📌 Roadmap
 ### ✅ Completed
-- Initial Go setup  
-- API routing structure  
-- Modular project layout  
+- URL shortening logic
+- Basic HTTP routing
 
 ### 🔜 Next Steps
-- Add **database support** (PostgreSQL + BUN ORM)  
-- Implement **request validation** (using libraries like `go-playground/validator`)  
-- Role-based authentication (Admin / Mentor / User)  
-- Newsletter system with subscriber management  
-- File uploads for gallery/events  
+- Add **database support** (PostgreSQL / SQLite)  
+- Implement **URL validation** (using regex or libraries)  
+- Add **expiration support** for links  
+- Provide an **API with JSON responses**  
+- Optional: **Custom short codes**
 
 ---
 
 ## ⚙️ Tech Stack
 - **Language:** Go (Golang)  
-- **Frameworks/Libs (planned):**
-  - [Bun](https://bun.uptrace.dev/) – PostgreSQL ORM
-  - [go-playground/validator](https://github.com/go-playground/validator) – Validation
-  - [JWT](https://github.com/golang-jwt/jwt) – Authentication
-- **Database (planned):** PostgreSQL  
-- **Payments (planned):** Stripe  
+- **Standard Library:** `net/http`, `encoding/json`  
+- (Planned) **Database:** PostgreSQL or SQLite  
+- (Planned) **Validation:** `go-playground/validator` or regex  
 
 ---
 
 ## 🛠️ Getting Started
 ### Prerequisites
 - [Go](https://go.dev/dl/) 1.21+  
-- (Future) PostgreSQL running locally or via Docker  
 
 ### Setup
 ```bash
 # clone repo
-git clone https://github.com/your-username/alumni-portal-backend.git
-cd alumni-portal-backend
+git clone https://github.com/your-username/url-shortener.git
+cd url-shortener
 
-# install dependencies
+# install dependencies (if any)
 go mod tidy
 
 # run server
