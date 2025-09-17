@@ -3,6 +3,7 @@ package main
 import (
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -26,7 +27,7 @@ func main() {
 
 	e.GET("/:id",rediectHandler)
 	e.GET("/",indexHandler)
-	e.POST("/Submit",submitHandler)
+	e.POST("/submit",submitHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 	
@@ -75,11 +76,11 @@ func indexHandler(c echo.Context) error {
 func submitHandler(c echo.Context) error  {
 	url := c.FormValue("url")
 	if url == ""{
-		c.String(http.StatusBadRequest, "Enter a URL")
+		return c.String(http.StatusBadRequest, "Enter a URL")
 	}
 
-	if len(url) >= 4 && (url[:4] == "http" || url[:5] == "https"){
-		url = "https://" + url
+	if !strings.HasPrefix(url, "http://") && !strings.HasPrefix(url, "https://") {
+	    url = "https://" + url
 	}
 
 	id := generateString(8)
