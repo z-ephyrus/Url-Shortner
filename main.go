@@ -25,8 +25,8 @@ func main() {
 	e.Use(middleware.Secure())
 
 	e.GET("/:id",rediectHandler)
-	//e.GET("/",indexHandler)
-	//e.POST("/Submit",submitHandler)
+	e.GET("/",indexHandler)
+	e.POST("/Submit",submitHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 	
@@ -54,4 +54,37 @@ func generateString(lenght int)string  {
 			result = append(result, charset[index])
 		}
 		return string(result)
+}
+
+
+func indexHandler(c echo.Context) error {
+	html := `
+		<h1>Submit a new website</h1>
+		<form action="/submit" method="POST">
+		<label for="url">Website URL:</label>
+		<input type="text" id="url" name="url">
+		<input type="submit" value="Submit">
+		</form>
+		<h2>Existing Links </h2>
+		<ul>
+	`
+
+	return c.HTML(http.StatusOK, html)
+}
+
+func submitHandler(c echo.Context) error  {
+	url := c.FormValue("url")
+	if url == ""{
+		c.String(http.StatusBadRequest, "Enter a URL")
+	}
+
+	if len(url) >= 4 && (url[:4] == "http" || url[:5] == "https"){
+		url = "https://" + url
+	}
+
+	id := generateString(8)
+
+	linkMap[id] = &Link{Id: id, Url: url} 
+
+	return c.Redirect(http.StatusSeeOther, "/")
 }
