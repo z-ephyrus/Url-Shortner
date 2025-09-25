@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	db "url-shortner/internal/db"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -30,6 +32,11 @@ func main() {
 	e.POST("/submit",submitHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
+
+
+	dsn := "postgres://postgres:@localhost:5432/test?sslmode=disable"
+	db.Connect(dsn)
+	defer db.Close()
 	
 }
 
