@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"log"
 
+	"url-shortner/internal/schema"
+
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -34,15 +36,15 @@ func Close()  {
 }
 
 
-func runMigrations()  {
-	
-	ctx := context.Background()
-	_,err := pg.NewCreateTable().
-			Model((*schema/user)(nil)).
-	IfNotExists().	
-	Exec(ctx)
-	if err != nil{
-		log.Fatalf("Failed to create Table: %v",err)
-	}
-	log.Println("Migration are complete!")
+func runMigrations() {
+    ctx := context.Background()
+    _, err := pg.NewCreateTable().
+        Model((*schema.User)(nil)).
+        IfNotExists().
+        Exec(ctx)
+
+    if err != nil {
+        log.Fatalf("Failed to create table: %v", err)
+    }
+    log.Println("Migrations are complete!")
 }
